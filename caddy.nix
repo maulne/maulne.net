@@ -11,6 +11,8 @@
 
     virtualHosts =
       let
+        forgejoHost = config.services.forgejo.settings.server.DOMAIN;
+        forgejoPort = config.services.forgejo.settings.server.HTTP_PORT;
         matrixPort = builtins.head config.services.matrix-continuwuity.settings.global.port;
         jwtPort = config.services.lk-jwt-service.port;
         livekitPort = config.services.livekit.settings.port;
@@ -25,6 +27,18 @@
         "maulne.com" = {
           extraConfig = ''
             redir https://maulne.net
+          '';
+        };
+
+        ${forgejoHost} = {
+          extraConfig = ''
+            handle / {
+              redir https://${forgejoHost}/explore/repos
+            }
+
+            handle {
+              reverse_proxy localhost:${builtins.toString forgejoPort}
+            }
           '';
         };
 

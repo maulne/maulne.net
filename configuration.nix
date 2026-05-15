@@ -45,5 +45,6 @@
   environment.systemPackages = with pkgs; [
     htop
     helix
+    nh
   ];
 }

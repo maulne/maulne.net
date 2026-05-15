@@ -10,6 +10,7 @@
           ./configuration.nix
           ./caddy.nix
           ./matrix.nix
+          ./forgejo.nix
         ];
       };
     };
